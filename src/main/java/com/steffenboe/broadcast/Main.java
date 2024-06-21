@@ -12,7 +12,7 @@ public class Main {
             socket.close();
         }
         if(args.length >= 1 && !args[0].equals("c")){
-            BroadcastNode node = new BroadcastNode(args[0]);
+            Broadcast node = new Broadcast(args[0]);
             if(args.length == 2){
                 node.addNeighbor("localhost:" + args[1]);
             }
