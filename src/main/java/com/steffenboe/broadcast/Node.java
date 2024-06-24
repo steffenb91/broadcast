@@ -15,8 +15,7 @@ public class Node {
         this.neighbors = neighbors;
     }
 
-    public void broadcast(InputStream inputStream) throws IOException {
-        final String message = readLineFrom(inputStream);
+    public void broadcast(String message) throws IOException {
         System.out.println("Received: " + message);
         forwardToNeighbors(message);
     }

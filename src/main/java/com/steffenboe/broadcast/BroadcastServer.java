@@ -1,9 +1,12 @@
 package com.steffenboe.broadcast;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.CountDownLatch;
 
 class BroadcastServer {
 
@@ -19,7 +22,8 @@ class BroadcastServer {
         try (ServerSocket serverSocket = new ServerSocket(Integer.parseInt(port))) {
             while (true) {
                 Socket clientSocket = serverSocket.accept();
-                node.broadcast(clientSocket.getInputStream());
+                String message = getMessageFrom(clientSocket);
+                node.broadcast(message);
             }
         } catch (BindException e) {
             System.out.println("Port " + port + " is already in use");
@@ -29,6 +33,14 @@ class BroadcastServer {
             System.exit(1);
 
         }
+    }
+
+    private String getMessageFrom(Socket clientSocket) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(
+                new InputStreamReader(clientSocket.getInputStream()));
+        String message = bufferedReader.readLine();
+        bufferedReader.close();
+        return message;
     }
 
 }
