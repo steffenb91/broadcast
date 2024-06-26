@@ -13,12 +13,12 @@ import org.junit.jupiter.api.Test;
 
 class BroadcastServerTest {
 
-	private BroadcastServer server;
+	private Server server;
 
 	@Test
 	public void shouldReceiveSentMessage() {
 		ByteArrayOutputStream outContent = redirectSystemOut();
-		startServer(new Node(new HashSet<>()));
+		startServer(new BroadcastingNode(new HashSet<>()));
 		sendMessage();
 		sleep(1000);
 		assertThat(outContent.toString(), is("Received: hello\n"));
@@ -42,8 +42,8 @@ class BroadcastServerTest {
 		sendMessage();
 	}
 
-	private void startServer(Node node) {
-		server = new BroadcastServer("8080", node);
+	private void startServer(BroadcastingNode node) {
+		server = new Server("8080", node);
 		Thread.ofVirtual().start(() -> {
 			server.start();
 		});

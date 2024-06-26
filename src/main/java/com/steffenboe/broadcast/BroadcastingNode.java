@@ -1,17 +1,14 @@
 package com.steffenboe.broadcast;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.Set;
 
-public class Node {
+class BroadcastingNode {
 
     private Set<String> neighbors;
 
-    Node(Set<String> neighbors) {
+    BroadcastingNode(Set<String> neighbors) {
         this.neighbors = neighbors;
     }
 
@@ -36,11 +33,6 @@ public class Node {
         }
     }
 
-    private String readLineFrom(InputStream inputStream) throws IOException {
-        return new BufferedReader(
-                new InputStreamReader(inputStream)).readLine();
-    }
-
     private void forwardMessageToNeighbor(String message, String neighbor) throws IOException {
         try (Socket socket = new Socket(neighbor.split(":")[0],
                 Integer.parseInt(neighbor.split(":")[1]))) {
@@ -55,5 +47,6 @@ public class Node {
     private void writeToOutputStream(String message, Socket socket) throws IOException {
         socket.getOutputStream().write(message.getBytes());
     }
+
 
 }

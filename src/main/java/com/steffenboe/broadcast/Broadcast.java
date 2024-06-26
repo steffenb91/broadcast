@@ -14,7 +14,7 @@ public class Broadcast {
     }
 
     public void init() {
-        BroadcastServer server = new BroadcastServer(port, new Node(neighbors));
+        Server server = new Server(port, new BroadcastingNode(neighbors));
         server.start();
     }
 

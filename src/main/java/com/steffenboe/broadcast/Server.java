@@ -6,14 +6,13 @@ import java.io.InputStreamReader;
 import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.CountDownLatch;
 
-class BroadcastServer {
+class Server {
 
     private String port;
-    private Node node;
+    private BroadcastingNode node;
 
-    BroadcastServer(String port, Node node) {
+    Server(String port, BroadcastingNode node) {
         this.port = port;
         this.node = node;
     }
